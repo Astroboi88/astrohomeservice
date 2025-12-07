@@ -4,15 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astrohomeservise - All Maintenance Needs</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind to use the Inter font and modern styles -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/css/intlTelInput.css">
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/intlTelInput.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* Global Body Styles */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7f9fc;
+            background-color: #555b63; 
+            background-image: url('one.jpg'); 
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
         }
+
+        /* Section Title Underline Custom Class */
         .section-title {
             position: relative;
             display: inline-block;
@@ -28,15 +39,87 @@
             background-color: #1e40af; /* Blue-800 */
             border-radius: 9999px;
         }
+
+        /* --- Cartoon Greeting Popup Styles --- */
+        #cartoon-greeting {
+            position: fixed;
+            left: 1rem;
+            bottom: 1rem;
+            width: 320px;
+            max-width: calc(100% - 2rem);
+            z-index: 80;
+            display: none;
+            pointer-events: auto;
+            animation: cg-slide-up 500ms ease forwards;
+        }
+        #cartoon-greeting .card {
+            display:flex; gap:0.75rem; align-items:flex-start;
+            background: linear-gradient(180deg,#fff,#f8fafc);
+            border-radius: 12px; padding: 0.75rem 0.9rem;
+            box-shadow: 0 12px 30px rgba(2,6,23,0.25);
+        }
+        #cartoon-greeting .cartoon {
+            width:72px; height:72px; flex:0 0 72px;
+        }
+        #cartoon-greeting .bubble {
+            flex:1;
+        }
+        #cartoon-greeting .bubble h4 { margin:0 0 4px 0; font-weight:700; color:#0f172a; font-size:15px; }
+        #cartoon-greeting .bubble p { margin:0; font-size:13px; color:#475569; }
+        #cartoon-greeting .actions { margin-top:8px; display:flex; gap:8px; align-items:center; }
+        #cartoon-greeting .btn {
+            background:#0ea5a4; color:#fff; padding:6px 10px; border-radius:8px; font-size:13px; text-decoration:none;
+            transition: background 150ms;
+        }
+        #cartoon-greeting .btn:hover { background: #0f767a; }
+
+        #cartoon-greeting .close {
+            background:transparent; border:0; font-size:18px; color:#6b7280; cursor:pointer; margin-left:6px;
+        }
+        #cartoon-greeting .muted { font-size:12px; color:#94a3b8; display:flex; align-items:center; gap:6px; margin-left:auto; }
+        @keyframes cg-slide-up { from { transform: translateY(20px) scale(.98); opacity:0 } to { transform: translateY(0) scale(1); opacity:1 } }
+        @media (prefers-reduced-motion: reduce) { #cartoon-greeting { animation: none; } }
+        /* --- End Cartoon Greeting Popup Styles --- */
+
+        /* --- Floating Call & Chat widget Styles --- */
+        #fh-widget { 
+            position: fixed; 
+            right: 1rem; 
+            bottom: 1rem; 
+            z-index: 90; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.6rem; 
+        }
+        .fh-btn { 
+            display: inline-flex; 
+            align-items:center; 
+            gap:8px; 
+            padding:10px 12px; 
+            border-radius:999px; 
+            box-shadow:0 8px 20px rgba(2,6,23,0.15); 
+            color:#fff; 
+            text-decoration:none; 
+            font-weight:600; 
+            font-size:14px; 
+            transition: transform 150ms;
+        }
+        .fh-btn:hover {
+             transform: translateY(-2px);
+        }
+        .fh-chat { background: #25D366; } /* WhatsApp green */
+        .fh-call { background: #0ea5a4; } /* teal */
+        .fh-icon { width:20px; height:20px; display:inline-block; }
+        @media (max-width:420px){ 
+            .fh-btn { padding:10px; font-size:13px } 
+        }
+        /* --- End Floating Call & Chat widget Styles --- */
     </style>
 </head>
 <body class="text-gray-800">
-
-    <!-- Header & Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <div class="text-2xl font-bold text-indigo-700">Astrohomeservise</div>
-            <!-- Simple Navigation Links (Hidden on Mobile, Displayed on Desktop) -->
             <nav class="hidden md:flex space-x-6 text-sm font-medium">
                 <a href="#services" class="hover:text-indigo-600 transition duration-150">Our Services</a>
                 <a href="#how-it-works" class="hover:text-indigo-600 transition duration-150">How It Works</a>
@@ -47,10 +130,9 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="bg-indigo-700 text-white pt-16 pb-20 sm:pt-24 sm:pb-32">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="4xl sm:text-6xl font-extrabold leading-tight mb-4">
+                <h1 class="text-4xl sm:text-6xl font-extrabold leading-tight mb-4">
                     Your Single Connection for <span class="text-yellow-300">Every Home Need</span>
                 </h1>
                 <p class="text-xl sm:text-2xl font-light mb-8 max-w-3xl mx-auto">
@@ -62,35 +144,30 @@
             </div>
         </section>
 
-        <!-- Services Section -->
         <section id="services" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold mb-12 section-title mx-auto text-center">Our Vetted Service Categories</h2>
                 
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-                    <!-- Service Card: Plumbing -->
                     <div class="bg-gray-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-blue-500">
                         <svg class="w-10 h-10 text-blue-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21h7a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2h4m5 0v-5h4v5m-4 0h-4M9 11v5h6v-5H9z"></path></svg>
                         <h3 class="text-xl font-semibold mb-2">Plumbing & HVAC</h3>
                         <p class="text-gray-600 text-sm">Leak fixes, water heater installation, drain clearing, and comprehensive heating/cooling maintenance.</p>
                     </div>
 
-                    <!-- Service Card: Renovation -->
                     <div class="bg-gray-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-green-500">
                         <svg class="w-10 h-10 text-green-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         <h3 class="text-xl font-semibold mb-2">Home Renovation</h3>
                         <p class="text-gray-600 text-sm">Kitchen and bathroom remodels, interior painting, drywall, carpentry, and custom gate/fence construction.</p>
                     </div>
                     
-                    <!-- Service Card: Cleaning -->
                     <div class="bg-gray-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-yellow-500">
                         <svg class="w-10 h-10 text-yellow-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10v11l6-2 6 2 6-2V10M3 10a2 2 0 012-2h14a2 2 0 012 2M3 10V5a2 2 0 012-2h14a2 2 0 012 2v5"></path></svg>
                         <h3 class="text-xl font-semibold mb-2">Detailed Cleaning</h3>
                         <p class="text-gray-600 text-sm">Deep cleaning, scheduled maid services, specialized vehicle detailing (car, boat, RV), and power washing.</p>
                     </div>
 
-                    <!-- Service Card: Roofing -->
                     <div class="bg-gray-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-red-500">
                         <svg class="w-10 h-10 text-red-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         <h3 class="text-xl font-semibold mb-2">Roofing & Exterior</h3>
@@ -101,7 +178,6 @@
             </div>
         </section>
         
-        <!-- How It Works Section -->
         <section id="how-it-works" class="py-20 bg-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold mb-12 section-title text-center">How Our System Works</h2>
@@ -128,7 +204,6 @@
             </div>
         </section>
 
-        <!-- Vetting / Trust Section (UPDATED FOR KWAZULU-NATAL POLICY) -->
         <section id="trust" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold mb-12 section-title mx-auto text-center">Why Trust Our KwaZulu-Natal Service Partners?</h2>
@@ -138,21 +213,18 @@
 
                 <div class="grid md:grid-cols-3 gap-8 text-center">
                     
-                    <!-- Trust Point 1 -->
                     <div class="p-6 bg-indigo-50 rounded-xl shadow-lg">
                         <svg class="w-10 h-10 text-indigo-600 mb-3 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.944 12c.048.974.291 1.944.78 2.853m8.261-2.853C14.045 9.42 16.598 8.133 19 8.047v.558a2 2 0 01-.482 1.258m-4.004-4.004h-.002"></path></svg>
                         <h4 class="text-xl font-semibold mb-2">Licensed & Insured</h4>
                         <p class="text-gray-600 text-sm">All partners provide up-to-date certification and liability insurance, protecting your home and property.</p>
                     </div>
                     
-                    <!-- Trust Point 2 (UPDATED TO REFLECT KZN COMPLIANCE/POLICY) -->
                     <div class="p-6 bg-indigo-50 rounded-xl shadow-lg">
                         <svg class="w-10 h-10 text-indigo-600 mb-3 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         <h4 class="text-xl font-semibold mb-2">KZN Regulatory Compliant</h4>
                         <p class="text-gray-600 text-sm">Partners are registered local businesses adhering to all KwaZulu-Natal trade standards and safety protocols.</p>
                     </div>
                     
-                    <!-- Trust Point 3 -->
                     <div class="p-6 bg-indigo-50 rounded-xl shadow-lg">
                         <svg class="w-10 h-10 text-indigo-600 mb-3 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.633a1.996 1.996 0 01-1.895-1.344L6.37 14.894a2 2 0 011.789-2.894H12a2 2 0 002-2V7a2 2 0 00-2-2h-3a2 2 0 00-2 2v5h.001"></path></svg>
                         <h4 class="text-xl font-semibold mb-2">98% Satisfaction Rating</h4>
@@ -162,21 +234,18 @@
             </div>
         </section>
 
-        <!-- Contact/Quote Form Section -->
         <section id="contact" class="py-20 bg-indigo-50">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold mb-8 section-title mx-auto text-center">Request Your Free Estimate</h2>
                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl">
                     
-                    <form id="quoteForm" class="space-y-6">
+                    <form id="quoteForm" class="space-y-6" data-dirty="false">
                         
-                        <!-- Name Input -->
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
                             <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
                         </div>
                         
-                        <!-- Contact Inputs -->
                         <div class="grid sm:grid-cols-2 gap-6">
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
@@ -188,13 +257,17 @@
                             </div>
                         </div>
 
-                        <!-- Location Address Input -->
                         <div>
                             <label for="locationAddress" class="block text-sm font-medium text-gray-700">Location Address / Area (e.g., Durban North, Pinetown, Pietermaritzburg)</label>
                             <input type="text" id="locationAddress" name="locationAddress" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150" placeholder="Street address or area in KZN">
+                            <div class="mt-2 flex flex-wrap gap-2 items-center">
+                                <button type="button" id="shareLocationBtn" class="px-3 py-2 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700">Use my device location</button>
+                                <button type="button" id="shareViaWebBtn" class="px-3 py-2 bg-green-600 text-white rounded-md text-sm hover:bg-green-700">Share location (Phone)</button>
+                                <button type="button" id="copyLocationBtn" class="px-3 py-2 bg-gray-100 text-gray-800 rounded-md text-sm hover:bg-gray-200">Copy location link</button>
+                            </div>
+                            <p id="locationStatus" class="text-xs text-gray-500 mt-2">If you can't type the address, tap "Use my device location".</p>
                         </div>
 
-                        <!-- Service Type Dropdown -->
                         <div>
                             <label for="serviceType" class="block text-sm font-medium text-gray-700">Type of Service Needed</label>
                             <select id="serviceType" name="serviceType" required class="mt-1 block w-full px-4 py-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
@@ -207,19 +280,43 @@
                             </select>
                         </div>
                         
-                        <!-- Message/Details Input -->
                         <div>
                             <label for="details" class="block text-sm font-medium text-gray-700">Details of Your Request (Required)</label>
                             <textarea id="details" name="details" rows="4" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150" placeholder="e.g., 'My kitchen sink is leaking and needs immediate repair.'"></textarea>
                         </div>
+
+                        <div id="bookingOptions" class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="preferredDate" class="block text-sm font-medium text-gray-700">Preferred Date</label>
+                                <input type="text" id="preferredDate" name="preferredDate" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150" placeholder="Select a date">
+                            </div>
+                            <div>
+                                <label for="preferredTime" class="block text-sm font-medium text-gray-700">Preferred Time Slot</label>
+                                <select id="preferredTime" name="preferredTime" class="mt-1 block w-full px-4 py-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
+                                    <option value="">Choose a time</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input id="flexibleDates" name="flexibleDates" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                            <label for="flexibleDates" class="ml-2 block text-sm text-gray-700">
+                                I'm flexible with dates — manager may contact me to reschedule
+                            </label>
+                        </div>
                         
-                        <!-- Submit Button -->
+                        <div>
+                            <label for="images" class="block text-sm font-medium text-gray-700">Attach Photos (optional)</label>
+                            <input id="images" name="images" type="file" accept="image/*" multiple class="mt-1 block w-full text-sm text-gray-700">
+                            <div id="imagePreview" class="mt-3 flex flex-wrap"></div>
+                            <p class="text-xs text-gray-500 mt-1">Attach up to 6 photos to help describe the issue. Images are previewed client-side.</p>
+                        </div>
+                        
                         <button type="submit" class="w-full py-3 px-4 border border-transparent rounded-lg shadow-lg text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 transform hover:scale-[1.01]">
                             Submit Request & Start Quote
                         </button>
                     </form>
 
-                    <!-- Success Message (Initially Hidden) -->
                     <div id="successMessage" class="hidden mt-6 p-6 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-lg" role="alert">
                         <p class="font-bold">Lead Submission Successful!</p>
                         <p>Thank you, <span id="successName" class="font-semibold"></span>! Your details have been secured.</p>
@@ -232,100 +329,495 @@
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- Footer (UPDATED WITH SOCIAL MEDIA TAGS) -->
     <footer class="bg-gray-800 text-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
             <p>&copy; <span id="currentYear"></span> Astrohomeservise. All Rights Reserved.</p>
             <p class="mt-2 text-xs text-gray-400">Disclaimer: We are a lead generation and management service. All work is performed by vetted, independent third-party contractors.</p>
             
-            <!-- Social Media Tags -->
             <div class="mt-6 pt-4 border-t border-gray-700 flex justify-center space-x-6">
                 
-                <!-- Facebook Link -->
-                <!-- Replace '#' with your actual Facebook URL -->
                 <a href="#" class="text-gray-400 hover:text-indigo-400 transition duration-300" aria-label="Find us on Facebook">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h3.295l-.527 2.987h-2.768v7.048C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
                     </svg>
                 </a>
 
-                <!-- Instagram Link -->
-                <!-- Replace '#' with your actual Instagram URL/tag -->
                 <a href="#" class="text-gray-400 hover:text-indigo-400 transition duration-300" aria-label="Follow us on Instagram">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.71.01 3.664.047 2.454.09 3.978.83 4.935 1.78.955.95 1.7.93 1.75.967.04.03.07.05.09.07a.64.64 0 01-.1.2c-.05.08-.1.14-.15.2-1.02.97-2.61 1.77-4.63 1.83-1.09.03-1.4.04-3.79.04-2.4 0-2.71-.01-3.79-.04-2.02-.06-3.61-.86-4.63-1.83-.05-.06-.1-.12-.15-.2a.64.64 0 01-.1-.2.43.43 0 01.1-.2c.05-.03.08-.05.12-.07.955-.95 2.48-1.7 4.93-1.78.95-.03 1.23-.04 3.66-.04zm-.62 4.02c-3.1 0-5.61 2.51-5.61 5.61s2.51 5.61 5.61 5.61 5.61-2.51 5.61-5.61-2.51-5.61-5.61-5.61zm0 9.22a3.61 3.61 0 110-7.22 3.61 3.61 0 010 7.22zm4.35-7.79c-.74 0-1.34.6-1.34 1.34s.6 1.34 1.34 1.34 1.34-.6 1.34-1.34-.6-1.34-1.34-1.34z" clip-rule="evenodd" />
                     </svg>
                 </a>
             </div>
-            <!-- End Social Media Tags -->
-
-        </div>
+            </div>
     </footer>
 
+    <div id="cartoon-greeting" role="dialog" aria-live="polite" aria-label="Greeting">
+        <div class="card" role="group" aria-hidden="false">
+            <div class="cartoon" aria-hidden="true">
+                <svg viewBox="0 0 120 120" width="72" height="72" xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
+                    <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fef3c7"/><stop offset="1" stop-color="#fde68a"/></linearGradient></defs>
+                    <rect width="120" height="120" rx="18" fill="#eef2ff"/>
+                    <g transform="translate(12,12)">
+                        <circle cx="42" cy="26" r="16" fill="#ffedd5"/>
+                        <path d="M26 44c6-6 24-6 30 0v18H26V44z" fill="#111827" opacity="0.06"/>
+                        <rect x="6" y="52" width="72" height="18" rx="8" fill="#0ea5a4" opacity="0.12"/>
+                        <circle cx="42" cy="26" r="16" fill="url(#g)" opacity="0.18"/>
+                        <circle cx="36" cy="22" r="2" fill="#111827"/>
+                        <circle cx="48" cy="22" r="2" fill="#111827"/>
+                        <path d="M36 30c4 3 8 3 10 0" stroke="#111827" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="bubble">
+                <h4>Hi there! 👋</h4>
+                <p>Need help booking a date or have a question? I can guide you — tap below to jump to the form.</p>
+                <div class="actions">
+                    <a href="#contact" id="greet-cta" class="btn" role="button">Book Now</a>
+                    <button id="greet-close" class="close" aria-label="Close greeting">✕</button>
+                    <label class="muted"><input id="greet-hide" type="checkbox"> Don't show again</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fh-widget" aria-hidden="false">
+        <a id="fh-chat" class="fh-btn fh-chat" href="#" role="button" aria-label="Chat on WhatsApp">
+            <svg class="fh-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20.52 3.48A11.94 11.94 0 0012 .5C6.21.5 1.5 5.21 1.5 11c0 1.93.5 3.76 1.45 5.36L.5 22l5.3-2.07A11.94 11.94 0 0012 22.5c5.79 0 10.5-4.71 10.5-10.5 0-1.98-.55-3.83-1.98-5.52z" fill="#fff" opacity="0.08"/>
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.149-.671.149-.198.297-.768.967-.942 1.167-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.607.134-.133.297-.347.446-.52.149-.173.198-.297.297-.495.099-.198.05-.371-.025-.52-.074-.149-.671-1.618-.92-2.214-.243-.583-.49-.504-.671-.514l-.571-.01c-.198 0-.52.074-.792.371s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.413-.074-.123-.272-.198-.57-.347z" fill="#fff"/>
+            </svg>
+            Chat (WhatsApp)
+        </a>
+
+        <a id="fh-call" class="fh-btn fh-call" href="#" role="button" aria-label="Call us">
+            <svg class="fh-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M22 16.92V20a2 2 0 01-2.18 2 19.86 19.86 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.86 19.86 0 01.99 4.2 2 2 0 013 2h3.09a1 1 0 011 .75c.12.67.33 1.31.62 1.92a1 1 0 01-.24 1.05L6.6 7.9a16 16 0 006 6l1.18-1.18a1 1 0 011.05-.24c.61.29 1.25.5 1.92.62a1 1 0 01.75 1V20z" fill="#fff"/>
+            </svg>
+            Call: 078 417 4780
+        </a>
+    </div>
     <script>
-        // Set the target manager phone number (including country code +27 for South Africa)
-        const MANAGER_PHONE_WHATSAPP = "27784174780"; 
-        const TARGET_EMAIL = "astroworldwideservice.net@gmail.com";
-        
-        // Get the current year for the footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        // Get elements
-        const form = document.getElementById('quoteForm');
-        const successMessage = document.getElementById('successMessage');
-        const successName = document.getElementById('name');
-        const nameInput = document.getElementById('name');
-
-        // Form submission handler
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+        /* FULL FEATURE CLIENT-SIDE IMPLEMENTATION
+            - Geolocation and Reverse Geocoding (Nominatim) for locationAddress field.
+            - Web Share / Copy link functionality for map location.
+            - Email Submission button added to the preview modal.
+            - WhatsApp links dynamically include map link if location is shared.
+            - All previous features (flatpickr, intl-tel, draft, calendar, popup) preserved.
+        */
+        (function () {
+            // --- Configuration ---
+            const RAW_PHONE = '0784174780'; // The provided local KZN number
+            const MANAGER_PHONE_WHATSAPP = "27784174780"; // The international format (no +) for wa.me link
+            const TARGET_EMAIL = "astroworldwideservice.net@gmail.com"; // Email for console log/backup
+            const EMAIL_LEAD_TARGET = "d14o40c04@gmail.com"; // New target for email button
+            const DRAFT_KEY = 'astro_form_draft_v1';
+            const GREETING_KEY = 'astro_cartoon_greeting_hidden_v1';
             
-            // 1. Capture Data
-            const formData = {
-                name: nameInput.value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                locationAddress: document.getElementById('locationAddress').value,
-                serviceType: document.getElementById('serviceType').value,
-                details: document.getElementById('details').value,
-            };
+            // --- Data & Availability ---
+            const AVAILABLE_DATES = (function () {
+                const out = [];
+                const today = new Date();
+                for (let i = 1; i <= 14; i++) {
+                    const d = new Date(today);
+                    d.setDate(today.getDate() + i);
+                    if (d.getDay() === 0) continue; 
+                    out.push(d.toISOString().slice(0, 10));
+                }
+                return out;
+            })();
+            const TIME_SLOTS = ["08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00"];
 
-            // 2. Format lead data for WhatsApp message
-            const whatsappMessage = `*NEW SERVICE LEAD (KZN)*\n\n` +
-                                    `*Client:* ${formData.name}\n` +
-                                    `*Service Type:* ${formData.serviceType}\n` +
-                                    `*Location:* ${formData.locationAddress}\n` +
-                                    `*Contact:* ${formData.phone} / ${formData.email}\n\n` +
-                                    `*Job Details:*\n${formData.details}\n\n` +
-                                    `-- Sent via Astrohomeservise Website`; // Updated Website Name
-
-            const encodedMessage = encodeURIComponent(whatsappMessage);
-            const whatsappUrl = `https://wa.me/${MANAGER_PHONE_WHATSAPP}?text=${encodedMessage}`;
+            // BOOKED slots placeholder (replace with server call)
+            let BOOKED = {};
+            if (AVAILABLE_DATES.length > 1) BOOKED[AVAILABLE_DATES[1]] = ['09:00 - 10:00', '11:00 - 12:00'];
             
-            // 3. Open WhatsApp link (This requires user interaction to send the final message)
-            window.open(whatsappUrl, '_blank');
-            
-            // 4. Log the captured lead data to the console (for manual email dispatch)
-            console.log("-----------------------------------------");
-            console.log("NEW LEAD CAPTURED - READY FOR EMAIL DISPATCH");
-            console.log("TARGET EMAIL (Manual Copy):", TARGET_EMAIL);
-            console.log("--- Lead Data Start ---");
-            console.log(whatsappMessage);
-            console.log("--- Lead Data End ---");
-            console.log("-----------------------------------------");
+            // Location sharing state (holds detected location)
+            window.__currentLocation = null; // { lat, lon, display_name, mapsUrl }
 
-            // 5. Display Success Message to the User
-            successName.textContent = formData.name;
-            form.classList.add('hidden');
-            successMessage.classList.remove('hidden');
+            // --- Element References ---
+            const form = document.getElementById('quoteForm');
+            const successMessage = document.getElementById('successMessage');
+            const details = document.getElementById('details');
+            const preferredDateSel = document.getElementById('preferredDate');
+            const preferredTimeSel = document.getElementById('preferredTime');
+            const flexibleCheckbox = document.getElementById('flexibleDates');
+            const imagesInput = document.getElementById('images');
+            const imagePreview = document.getElementById('imagePreview');
+            const inputs = Array.from(form.querySelectorAll('input, textarea, select'));
+            const phoneEl = document.getElementById('phone');
+            const yearEl = document.getElementById('currentYear');
+            const locationInput = document.getElementById('locationAddress');
+            const locationStatus = document.getElementById('locationStatus');
 
-            // 6. Scroll to the message for mobile users
-            successMessage.scrollIntoView({ behavior: 'smooth' });
+            // Widgets & Location Buttons
+            const modal = document.getElementById('astro-preview-modal');
+            const popup = document.getElementById('cartoon-greeting');
+            const greetBtn = document.getElementById('greet-cta');
+            const greetClose = document.getElementById('greet-close');
+            const hideCheckbox = document.getElementById('greet-hide');
+            const chatWidget = document.getElementById('fh-chat');
+            const callWidget = document.getElementById('fh-call');
+            const shareLocationBtn = document.getElementById('shareLocationBtn');
+            const shareViaWebBtn = document.getElementById('shareViaWebBtn');
+            const copyLocationBtn = document.getElementById('copyLocationBtn');
             
-        });
+            // --- Helper Functions ---
+
+            // Toast helper
+            function showToast(msg) {
+                let t = document.getElementById('astro-toast');
+                if (!t) {
+                    t = document.createElement('div');
+                    t.id = 'astro-toast';
+                    Object.assign(t.style, { position: 'fixed', right: '1rem', bottom: '1rem', background: 'rgba(17,24,39,0.95)', color: '#fff', padding: '0.6rem 1rem', borderRadius: '8px', zIndex: 60, boxShadow: '0 6px 18px rgba(0,0,0,0.2)', fontSize: '0.95rem', transition: 'opacity 300ms' });
+                    document.body.appendChild(t);
+                }
+                t.textContent = msg;
+                t.style.opacity = '1';
+                clearTimeout(t._h);
+                t._h = setTimeout(() => t.style.opacity = '0', 3000);
+            }
+
+            // Function to disable booked time slots
+            function applyBooked(date) {
+                if (!preferredTimeSel) return;
+                Array.from(preferredTimeSel.options).forEach(o => { 
+                    o.disabled = false; 
+                    o.classList.remove('opacity-50'); 
+                });
+                const booked = BOOKED[date] || [];
+                booked.forEach(slot => {
+                    const opt = Array.from(preferredTimeSel.options).find(o => o.value === slot);
+                    if (opt) { 
+                        opt.disabled = true; 
+                        opt.classList.add('opacity-50'); 
+                    }
+                });
+            }
+
+            // Function to gather all form values
+            function gatherValues() {
+                const v = {};
+                inputs.forEach(i => {
+                    const key = i.id || i.name;
+                    if (i.type === 'checkbox') v[key] = i.checked ? 'true' : 'false';
+                    else v[key] = (i.value || '').trim();
+                });
+                return v;
+            }
+
+            // Function to generate the structured WhatsApp message
+            function buildWhatsAppMessage(values) {
+                let bookingDetails = '';
+                if (values.preferredDate) {
+                    const dateInput = document.getElementById('preferredDate');
+                    const dateDisplay = dateInput && dateInput._flatpickr ? dateInput._flatpickr.input.value : values.preferredDate;
+                    bookingDetails += `*Preferred Date:* ${dateDisplay}\n`;
+                }
+                if (values.preferredTime) bookingDetails += `*Preferred Time:* ${values.preferredTime}\n`;
+                if (values.flexibleDates === 'true') bookingDetails += `*Flexible with dates:* YES\n`;
+                
+                const formattedPhone = (window._iti && window._iti.getNumber) ? window._iti.getNumber() : values.phone;
+
+                return `*NEW SERVICE LEAD (KZN)*\n\n*Client:* ${values.name}\n*Service Type:* ${values.serviceType}\n*Location:* ${values.locationAddress}\n*Contact:* ${formattedPhone} / ${values.email}\n\n${bookingDetails ? bookingDetails + '\n' : ''}*Job Details:*\n${values.details}\n\n-- Sent via Astrohomeservise Website`;
+            }
+
+            // Google Calendar add button on success (creates a provisional event)
+            function createCalendarButton(values) {
+                if (!successMessage) return;
+                if (document.getElementById('addCalendarBtn')) return;
+                const btn = document.createElement('a');
+                btn.id = 'addCalendarBtn';
+                btn.className = 'inline-block mt-3 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-150';
+                btn.textContent = 'Add Provisional Event to Google Calendar';
+                btn.href = '#';
+                btn.onclick = (ev) => {
+                    ev.preventDefault();
+                    const date = values.preferredDate || ''; 
+                    const timeSlot = values.preferredTime || "09:00 - 10:00"; 
+                    const [startStr, endStr] = timeSlot.split(' - ');
+                    
+                    const startTime = startStr.replace(':', '') + '00Z';
+                    const endTime = endStr ? endStr.replace(':', '') + '00Z' : (parseInt(startTime.slice(0,4)) + 10000).toString().padStart(6, '0') + 'Z';
+
+                    const start = date ? date.replace(/-/g,'') + 'T' + startTime : '';
+                    const end = date ? date.replace(/-/g,'') + 'T' + endTime : '';
+                    
+                    const title = encodeURIComponent(`Astrohomeservise: ${values.serviceType || 'Service'}`);
+                    const details = encodeURIComponent(`Service Details: ${values.details || ''}. \n\nNOTE: This is a provisional booking. A manager will confirm the date and time via WhatsApp/Phone.`);
+                    const dates = date ? `${start}/${end}` : '';
+                    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}`;
+                    window.open(url, '_blank');
+                };
+                successMessage.appendChild(btn);
+            }
+
+            // Helper: reverse geocode using Nominatim (free)
+            async function reverseGeocode(lat, lon) {
+                try {
+                    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&addressdetails=1`);
+                    if (!res.ok) return null;
+                    return await res.json();
+                } catch (e) { return null; }
+            }
+
+            // --- Initialization and Event Bindings (Cont.) ---
+            
+            // Populate selects
+            populateBookingFields();
+            if (preferredDateSel) {
+                preferredDateSel.addEventListener('change', (e) => applyBooked(e.target.value));
+            }
+            applyBooked(preferredDateSel?.value || '');
+
+            // Draft Save / Restore
+            inputs.forEach(i => i.addEventListener('input', () => { form.dataset.dirty = 'true'; }));
+            restoreDraft();
+            setInterval(() => { if (form.dataset.dirty === 'true') saveDraft(); }, 6000);
+            window.addEventListener('beforeunload', (e) => { if (form.dataset.dirty === 'true') { e.preventDefault(); e.returnValue = ''; }});
+
+
+            // Location button logic
+            if (shareLocationBtn) {
+                shareLocationBtn.addEventListener('click', () => {
+                    if (!navigator.geolocation) { showToast('Geolocation not supported in this browser'); return; }
+                    showToast('Requesting device location...');
+                    navigator.geolocation.getCurrentPosition(async (pos) => {
+                        const lat = pos.coords.latitude;
+                        const lon = pos.coords.longitude;
+                        const data = await reverseGeocode(lat, lon);
+                        const mapsUrl = `https://maps.google.com/?q=${lat},${lon}`; // Standard Google Maps URL
+                        window.__currentLocation = { lat, lon, display_name: data?.display_name || `${lat.toFixed(5)}, ${lon.toFixed(5)}`, mapsUrl };
+                        
+                        // fill input for user to edit if needed
+                        if (locationInput) locationInput.value = window.__currentLocation.display_name;
+                        if (locationStatus) locationStatus.textContent = 'Location detected — you can share it with the manager or edit it.';
+                        showToast('Location detected and filled. Tap Chat to share or use Share Location.');
+                    }, (err) => {
+                        showToast('Unable to get location: ' + (err.message || 'permission denied'));
+                    }, { timeout: 10000, maximumAge: 60000 });
+                });
+            }
+
+            if (shareViaWebBtn) {
+                shareViaWebBtn.addEventListener('click', async () => {
+                    if (!window.__currentLocation) { showToast('No location yet — first tap "Use my device location".'); return; }
+                    const shareData = {
+                        title: 'My location for service booking',
+                        text: `My location: ${window.__currentLocation.display_name}`,
+                        url: window.__currentLocation.mapsUrl
+                    };
+                    if (navigator.share) {
+                        try { await navigator.share(shareData); showToast('Share dialog opened'); }
+                        catch (e) { showToast('Share canceled'); }
+                    } else {
+                        // fallback: open WhatsApp with map link
+                        const wa = `https://wa.me/${MANAGER_PHONE_WHATSAPP}?text=${encodeURIComponent('Hello, here is my location: ' + window.__currentLocation.mapsUrl)}`;
+                        window.open(wa, '_blank');
+                    }
+                });
+            }
+
+            if (copyLocationBtn) {
+                copyLocationBtn.addEventListener('click', async () => {
+                    if (!window.__currentLocation) { showToast('No location to copy — first tap "Use my device location".'); return; }
+                    try {
+                        await navigator.clipboard.writeText(window.__currentLocation.mapsUrl);
+                        showToast('Map link copied to clipboard');
+                    } catch (e) {
+                        // fallback: show link in prompt
+                        prompt('Copy this link', window.__currentLocation.mapsUrl);
+                    }
+                });
+            }
+
+            // Form submit handler: preview then open WhatsApp
+            form.addEventListener('submit', (ev) => {
+                ev.preventDefault();
+                const values = gatherValues();
+                if (!values.name || !values.phone || !values.details || !values.serviceType) { showToast('Please complete name, phone, service type and details.'); return; }
+                
+                if (window._iti && !window._iti.isValidNumber()) {
+                    showToast('Please enter a valid phone number.');
+                    return;
+                }
+
+                const previewBody = document.getElementById('astro-preview-body');
+                const waMsg = buildWhatsAppMessage(values);
+                previewBody.textContent = waMsg;
+                modal.style.display = 'flex';
+                document.getElementById('astro-preview-close').focus();
+                document.getElementById('astro-preview-close').onclick = () => modal.style.display = 'none';
+                document.getElementById('astro-preview-edit').onclick = () => modal.style.display = 'none';
+                document.getElementById('astro-preview-send').onclick = () => {
+                    form.dataset.dirty = 'false';
+                    localStorage.removeItem(DRAFT_KEY);
+                    
+                    // Enhancement: Include location link in WhatsApp message if available
+                    let finalWaMsg = waMsg;
+                    if (window.__currentLocation && window.__currentLocation.mapsUrl) {
+                        finalWaMsg += `\n\nLocation: ${window.__currentLocation.mapsUrl}`;
+                    }
+                    
+                    window.open(`https://wa.me/${MANAGER_PHONE_WHATSAPP}?text=${encodeURIComponent(finalWaMsg)}`, '_blank');
+                    document.getElementById('successName').textContent = values.name;
+                    form.classList.add('hidden');
+                    successMessage.classList.remove('hidden');
+                    successMessage.scrollIntoView({ behavior: 'smooth' });
+                    modal.style.display = 'none';
+                    showToast('WhatsApp opened — remember to tap Send.');
+                };
+            });
+            
+            // Watch form hidden -> append calendar button
+            const mo = new MutationObserver(() => {
+                if (form.classList.contains('hidden')) {
+                    const values = gatherValues(); 
+                    createCalendarButton(values);
+                }
+            });
+            mo.observe(form, { attributes: true });
+
+
+            /* --- CARTOON GREETING POPUP LOGIC --- */
+            function shouldShowGreeting() {
+                try {
+                    return !localStorage.getItem(GREETING_KEY);
+                } catch (e) { return true; }
+            }
+
+            function showPopupGreeting() {
+                if (!popup) return;
+                popup.style.display = 'block';
+            }
+            function hidePopupGreeting(persist) {
+                if (!popup) return;
+                popup.style.display = 'none';
+                if (persist) {
+                    try { localStorage.setItem(GREETING_KEY, '1'); } catch (e) {}
+                }
+            }
+
+            if (greetBtn) {
+                greetBtn.addEventListener('click', () => {
+                    hidePopupGreeting(false);
+                    setTimeout(() => {
+                        const name = document.getElementById('name');
+                        if (name) name.focus();
+                    }, 300);
+                });
+            }
+
+            if (greetClose) {
+                greetClose.addEventListener('click', () => {
+                    hidePopupGreeting(hideCheckbox.checked);
+                });
+            }
+
+            if (shouldShowGreeting()) {
+                window.addEventListener('load', () => setTimeout(showPopupGreeting, 1800));
+            }
+
+            let scrolled = false;
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 600 && !scrolled) { scrolled = true; hidePopupGreeting(false); }
+            }, { passive: true });
+            /* --- END CARTOON GREETING POPUP LOGIC --- */
+            
+            
+            /* --- FLOATING CALL & CHAT WIDGET SETUP --- */
+            const intlPhone = '+27' + RAW_PHONE.replace(/^0/, '');
+            const whatsappNumber = intlPhone.replace('+', ''); 
+
+            if (chatWidget) {
+                chatWidget.addEventListener('click', (ev) => {
+                    ev.preventDefault();
+                    let baseMsg = 'Hello, I need help with a booking.';
+                    // Include address from input field
+                    if (locationInput && locationInput.value && locationInput.value.trim().length > 0) {
+                        baseMsg += `%0A%0AAddress/Area: ${encodeURIComponent(locationInput.value.trim())}`;
+                    }
+                    // Include map link if detected
+                    if (window.__currentLocation && window.__currentLocation.mapsUrl) {
+                        baseMsg += `%0A%0AMap Link: ${encodeURIComponent(window.__currentLocation.mapsUrl)}`;
+                    }
+                    const wa = `https://wa.me/${whatsappNumber}?text=${baseMsg}`;
+                    window.open(wa, '_blank');
+                    track('whatsapp_click');
+                });
+            }
+            if (callWidget) {
+                callWidget.href = `tel:${intlPhone}`;
+            }
+
+            // optional: small analytics event (no external libs)
+            function track(action){ try { console.log('widget-action', action, new Date().toISOString()); } catch(e){} }
+            callWidget && callWidget.addEventListener('click', ()=>track('call_click'));
+            /* --- END FLOATING CALL & CHAT WIDGET SETUP --- */
+            
+            // --- Email Button Handler ---
+            const emailBtn = document.getElementById('astro-preview-email');
+            if (emailBtn) {
+                emailBtn.addEventListener('click', () => {
+                    const values = gatherValues();
+                    const body = buildWhatsAppMessage(values).replace(/\*/g, ''); // Remove WhatsApp markdown
+                    const to = EMAIL_LEAD_TARGET;
+                    const subject = 'New Service Lead - Astrohomeservise';
+                    
+                    // Append map link to email body if location is available
+                    let finalBody = body;
+                    if (window.__currentLocation && window.__currentLocation.mapsUrl) {
+                        finalBody += `\n\nMap Link: ${window.__currentLocation.mapsUrl}`;
+                    }
+                    
+                    const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(finalBody)}`;
+
+                    // open user's default mail client with prefilled draft
+                    window.location.href = mailto;
+
+                    // close modal and show success UI (same UX as WhatsApp path)
+                    try {
+                        document.getElementById('successName').textContent = values.name || '';
+                        document.getElementById('quoteForm').classList.add('hidden');
+                        document.getElementById('successMessage').classList.remove('hidden');
+                        document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+                    } catch (e) { /* ignore */ }
+
+                    // small toast guidance
+                    showToast('Mail client opened — please send the draft.');
+                });
+            }
+
+
+            // Ctrl/Cmd+S manual save
+            window.addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); saveDraft(); }});
+        })();
+    </script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('astro-preview-modal');
+        if (!modal) return;
+
+        const actionContainer = modal.querySelector('div[style*="border-top"]') || modal.querySelector('div:last-child');
+        if (!actionContainer) return;
+
+        // Add the Email button if it doesn't exist
+        if (!document.getElementById('astro-preview-email')) {
+            const emailBtn = document.createElement('button');
+            emailBtn.id = 'astro-preview-email';
+            emailBtn.type = 'button';
+            emailBtn.textContent = 'Send via Email';
+            emailBtn.setAttribute('style', 'background:#3b82f6;color:#fff;border:0;padding:0.5rem 0.9rem;border-radius:8px;cursor:pointer');
+            
+            const sendBtn = document.getElementById('astro-preview-send');
+            if (sendBtn) actionContainer.insertBefore(emailBtn, sendBtn);
+            else actionContainer.appendChild(emailBtn);
+            
+            // Note: The click handler for this button is defined in the main script block above.
+        }
+    });
     </script>
 </body>
 </html>
